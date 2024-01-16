@@ -10,6 +10,7 @@ const SignupPage = () => {
     const handleLoginClick = () => {
       navigate('/login');
     };
+    
     return (
         <Wrapper>
             <img src={logo} style={{'maxWidth': '120px', marginTop: '20px'}} alt="logo" />

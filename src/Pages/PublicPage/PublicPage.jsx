@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, Links, Middle, Top, Wrapper } from './styles'
-import avatar1 from '../../assets/avatar1.jpg'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const PublicPage = () => {
-
     const { userNickname } = useParams();
 
-    const getUserData = async () => {
-        const user = await axios.get(`https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/?nickname=${userNickname}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        return user.data
-    }
-    // console.log(getUserData())
     const [userData, setUserData] = useState({
         userNickname: '',
         bio: '',
@@ -27,10 +16,19 @@ const PublicPage = () => {
         email: ''
     });
 
+    // Obtenção de dados do usuário quando o componente está montado
+    const getUserData = async () => {
+        const user = await axios.get(
+            `https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/?nickname=${userNickname}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        return user.data
+    }
     useEffect(() => {
         getUserData().then((data) => {
             setUserData(data)
-            console.log(data)
         })
     }, [])
 

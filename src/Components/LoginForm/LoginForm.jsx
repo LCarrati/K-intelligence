@@ -5,14 +5,14 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 
 const LoginForm = () => {
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         nickname: '',
         password: '',
     })
 
-    const navigate = useNavigate();
-
+    // Controle dos inputs
     const handleChange = (e) => {
         const { name, value, type } = e.target;
 
@@ -22,6 +22,7 @@ const LoginForm = () => {
         }));
     };
 
+    // Envio dos dados para o servidor de login
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Perform validations
@@ -29,11 +30,10 @@ const LoginForm = () => {
             !formData.nickname ||
             !formData.password
         ) {
-            alert('Todos os campos são obrigatórios');
+            toast.error('Todos os campos são obrigatórios');
             return;
         }
 
-        console.log('Form data submitted:', formData)
         const response = await axios.get(`https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/?nickname=${formData.nickname}&password=${formData.password}&type=login`, {
             headers: {
                 'Content-Type': 'application/json',

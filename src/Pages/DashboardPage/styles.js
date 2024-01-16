@@ -30,8 +30,6 @@ export const Middle = styled.div`
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    /* max-width: 320px; */
-    /* background-color: #eaeaea; */
     margin-bottom: 40px;
 
     & h1{

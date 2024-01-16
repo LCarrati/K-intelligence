@@ -31,10 +31,9 @@ export const Middle = styled.div`
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    /* max-width: 320px; */
     background-color: #eaeaea;
 
-    & h1{
+    & h1 {
         margin: 80px auto 0;
         text-transform: uppercase;
         font-family: system-ui;
@@ -52,9 +51,9 @@ export const Middle = styled.div`
         width: 90%;
         max-width: 320px;
         display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
     }
 `
 

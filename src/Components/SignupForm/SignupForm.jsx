@@ -5,8 +5,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-
 const SignupForm = () => {
+    const navigate = useNavigate();
+    const fileInputRef = useRef();
+
     const [formData, setFormData] = useState({
         name: '',
         nickname: '',
@@ -23,7 +25,7 @@ const SignupForm = () => {
         longitude: '',
     });
 
-    const fileInputRef = useRef();
+    // Controle dos inputs
     const handleChange = (e) => {
         const { name, value, type } = e.target;
         setFormData((prevData) => ({
@@ -32,71 +34,58 @@ const SignupForm = () => {
         }));
     };
 
-
-    const steps = [
-        {
-            id: 'personal', //nome, apelido, gênero
-            title: 'Dados pessoais',
-        },
-        {
-            id: 'contact', //email, telefone, website, discord
-            title: 'Contato',
-        },
-        {
-            id: 'moreInfo', // bio, avatar
-            title: 'Aparência',
-        },
-        {
-            id: 'password',
-            title: 'Senha',
-        }// lat e long via código geolocation, type vai ser sempre user
-    ]
-
-    const navigate = useNavigate();
-
+    // Envio dos dados de cadastro para o servidor
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formDataToSend = { ...formData };
 
-        // Exclui um campo na cópia
+        // Alterando os dados para se adequar ao envio ao servidor
         delete formDataToSend.confirmPassword;
         delete formDataToSend.image;
         formDataToSend.imageName = formData.image.name
 
-        // Submit the form data or perform further actions
-        console.log('Form data submitted:', formDataToSend);
-
+        // Enviando os dados para o servidor
         try {
-            // Envie a solicitação usando Axios
             // const response = await axios.post('https://testek-server.kintelligence.com.br:7331/user', formDataToSend, { // sem resposta
-            await axios.post('https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/', formDataToSend, {
+
+            // Envio de dados para o banco de dados
+            await axios.post(
+                'https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/',
+                formDataToSend, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(formData)
-            console.log(formData.image.name)
-            const avatarImageToSend = JSON.stringify({ image: formData.image.name, folderPath: `linktree/${formData.nickname}/` })
-            console.log(avatarImageToSend)
-            const response = await axios.post('https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/', avatarImageToSend, {
+
+            // Envio da imagem para o servidor
+            const avatarImageToSend = JSON.stringify(
+                {
+                    image: formData.image.name,
+                    folderPath: `linktree/${formData.nickname}/`
+                }
+            )
+
+            // Gerando o link assinado para a imagem
+            const response = await axios.post(
+                'https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/',
+                avatarImageToSend, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response.data)
-            console.log(formData.image.type)
+
+            // Enviando a imagem para o servidor através do link assinado
             await axios.put(response.data[0], formData.image, {
                 headers: {
                     'Content-Type': formData.image.type, // Defina o tipo de conteúdo do arquivo
                 },
             })
-            // Lide com a resposta da API conforme necessário
-            console.log('API Response:', response.data);
+
+            // Tudo certo, redirecionar para a página de sucesso
             navigate('/congrats')
 
         } catch (error) {
-            // Lide com erros da solicitação
             toast.error('Erro ao criar usuário', {
                 position: "top-center"
             });
@@ -104,8 +93,17 @@ const SignupForm = () => {
         }
     };
 
-    const [currentStep, setCurrentStep] = useState(0);
 
+    // Formulário de cadastro multi-step
+    // ------ início ------
+    const [currentStep, setCurrentStep] = useState(0);
+    let currentFormStep;
+    let currentFormStepValidation;
+
+    // Definir a quantidade de steps do formulário
+    const steps = [0, 1, 2, 3]
+
+    // Controle dos steps do formulário ao clicar no botão next
     const handleNextStep = () => {
         if (currentFormStepValidation) {
             setCurrentStep((prevState) => prevState + 1)
@@ -116,6 +114,7 @@ const SignupForm = () => {
         }
     };
 
+    // Controle dos steps do formulário ao clicar no breadcrumb
     const handleChangeStep = (step) => {
         if (currentFormStepValidation) {
             setCurrentStep(step);
@@ -126,11 +125,9 @@ const SignupForm = () => {
         }
     }
 
-    let currentFormStep;
-    let currentFormStepValidation;
-
-    switch (steps[currentStep].id) {
-        case 'personal':
+    // Renderizar os steps e validações
+    switch (currentStep) {
+        case 0:
             currentFormStep = <>
                 <InputWrapper>
                     <InputField type="text" name="name" value={formData.name} onChange={handleChange} />
@@ -158,7 +155,7 @@ const SignupForm = () => {
             </>
             currentFormStepValidation = formData.name && formData.nickname && formData.gender
             break;
-        case 'contact':
+        case 1:
             currentFormStep = <>
                 <InputWrapper>
                     <InputField type="email" name="email" value={formData.email} onChange={handleChange} />
@@ -187,7 +184,7 @@ const SignupForm = () => {
             </>
             currentFormStepValidation = formData.email && formData.phone && formData.discord && formData.website
             break;
-        case 'moreInfo':
+        case 2:
             currentFormStep = <>
                 <InputWrapper>
                     <input type="file" name="image" ref={fileInputRef} onChange={handleChange} />
@@ -204,7 +201,7 @@ const SignupForm = () => {
             </>
             currentFormStepValidation = formData.image && formData.bio
             break;
-        case 'password':
+        case 3:
             currentFormStep = <>
                 <InputWrapper>
                     <InputField type="password" name="password" value={formData.password} onChange={handleChange} />
@@ -228,12 +225,14 @@ const SignupForm = () => {
         default:
             break;
     }
+    // Formulário de cadastro multi-step
+    // ------ Fim ------
 
+    // Obter a localização do usuário
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    console.log('aff')
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
                     setFormData((prevData) => ({
