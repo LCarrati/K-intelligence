@@ -258,8 +258,8 @@ const SignupForm = () => {
             </StepsContainer>
             <Form>
                 {currentFormStep}
-                {currentStep < steps.length - 1 && <SubmitButton type="button" onClick={handleNextStep}>Next</SubmitButton>}
-                {currentStep === steps.length - 1 && <SubmitButton type="submit" onClick={handleSubmit}>Submit</SubmitButton>}
+                {currentStep < steps.length - 1 && <SubmitButton type="button" onClick={handleNextStep}>Próximo</SubmitButton>}
+                {currentStep === steps.length - 1 && <SubmitButton type="submit" onClick={handleSubmit}>Enviar</SubmitButton>}
             </Form>
         </>
     );

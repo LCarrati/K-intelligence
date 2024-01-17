@@ -1,1 +1,37 @@
-Olá mundo!
+# K-LinkTree!
+
+Árvore de link desenvolvida durante processo seletivo da **K-Intelligence**. Permite a criação de uma conta e cadastro de links para compartilhamento. Uma página pública é criada para cada usuário cadastrado.
+
+# LivePreview
+[MyLinkTree](leonardo-carrati.dev.br/mylinktree)
+
+# Tecnologias
+
+* React.js (Frontend)     
+  * Vite
+  * React Router V6
+  * Axios
+  * Styled-Components
+
+* AWS (Backend)
+  * AWS S3
+  * AWS Lambda
+
+* MongoDB Atlas  
+&nbsp;
+
+# Telas
+* Login
+* Registro
+* Sucesso
+* Dashboard
+* Página pública  
+&nbsp;
+
+# Screens
+### Tela de login
+![login](/src/assets/login.jpg "Tela de login")
+### Tela de Registro
+![register](/src/assets/register.jpg "Tela de registro")
+### Tela de Compartilhamento de link
+![public page](/src/assets/publicpage.jpg "Tela de compartilhamento de links")
