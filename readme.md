@@ -30,8 +30,8 @@
 
 # Screens
 ### Tela de login
-![login](/src/assets/login.jpg "Tela de login")
+![login](/src/Assets/login.jpg "Tela de login")
 ### Tela de Registro
-![register](/src/assets/register.jpg "Tela de registro")
+![register](/src/Assets/register.jpg "Tela de registro")
 ### Tela de Compartilhamento de link
-![public page](/src/assets/publicpage.jpg "Tela de compartilhamento de links")
+![public page](/src/Assets/publicpage.jpg "Tela de compartilhamento de links")
