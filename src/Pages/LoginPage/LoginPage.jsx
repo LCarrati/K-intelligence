@@ -2,9 +2,18 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "../../Components/LoginForm/LoginForm"
 import logo from '../../assets/logo.png'
 import { Title, Wrapper } from "./styles"
+import { useEffect } from "react";
 
 const LoginPage = () => {
     const navigate = useNavigate();
+
+    // Verificando se o usuário está logado (rudimental, apenas para testes)
+    useEffect(() => {
+        const userStatus = localStorage.getItem('status');
+        if (userStatus && JSON.parse(userStatus).logado === true) {
+            navigate('/dashboard/' + JSON.parse(userStatus).nickname);
+        } 
+    }, []);
 
     const handleSignupClick = () => {
         navigate('/register');

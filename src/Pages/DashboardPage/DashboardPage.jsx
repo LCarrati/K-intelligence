@@ -27,7 +27,9 @@ const DashboardPage = () => {
         } else if (!userStatus) {
             navigate('/login');
         } else {
-            toast.success('Seja bem vindo(a) ' + JSON.parse(userStatus).nickname);
+            toast.success('Seja bem vindo(a) ' + JSON.parse(userStatus).nickname, {
+                position: "top-center"
+            });
         }
 
     }, []);
@@ -64,10 +66,10 @@ const DashboardPage = () => {
     return (
         <Wrapper>
             <Top>
-                <Avatar src={`./${userData.username}/${userData.imageName}`} alt="avatar" />
+                <Avatar src={`/linktree/${userData.nickname}/${userData.imageName}`} alt="avatar" />
             </Top>
             <Middle>
-                <h1>Olá {userData.username}!</h1>
+                <h1>Olá {userData.nickname}!</h1>
                 <p>A sua página de links já está disponível em:</p>
                 <p><a href={`https://leonardo-carrati.dev.br/linktree/links/${userData.nickname}`} target="_blank">leonardo-carrati.dev.br/linktree/links/{userData.nickname}</a></p>
                 <br />

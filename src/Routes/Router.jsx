@@ -7,14 +7,14 @@ import CongratsPage from "../Pages/CongratsPage/CongratsPage"
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/linktree">
         <Routes>
-            <Route path="/login" element={<LoginPage/>} />
-            <Route path="/register" element={<SignupPage />} />
-            <Route parth="/" element={<DashboardPage />} />
-            <Route path="/links/:userNickname" element={<PublicPage />} />
-            <Route path="/congrats" element={<CongratsPage />} />
-            <Route path="/dashboard/:username" element={<DashboardPage />} />
+            <Route path="login" element={<LoginPage/>} />
+            <Route path="/" element={<LoginPage/>} />
+            <Route path="register" element={<SignupPage />} />
+            <Route path="links/:userNickname" element={<PublicPage />} />
+            <Route path="congrats" element={<CongratsPage />} />
+            <Route path="dashboard/:username" element={<DashboardPage />} />
         </Routes>
     </BrowserRouter>
   )

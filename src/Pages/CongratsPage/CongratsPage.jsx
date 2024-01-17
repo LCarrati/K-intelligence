@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Wrapper } from './styles'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const CongratsPage = () => {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const CongratsPage = () => {
             <h1>Tudo pronto!</h1>
             <p>Agora você pode <b>fazer login</b> e compartilhar seus links!</p>
             <p>Você será <b>redirecionado</b> para a página de login <b>automaticamente</b>.</p>
-            <p>Caso não seja redirecionado, clique <a href="/login">aqui</a>.</p>
+            <p>Caso não seja redirecionado, clique <Link to="/login">aqui</Link>.</p>
         </Wrapper>
     )
 }

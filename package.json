@@ -1,5 +1,6 @@
 {
   "name": "k-test",
+  "homepage": "https://leonardo-carrati.dev.br/linktree",
   "private": true,
   "version": "0.0.0",
   "type": "module",

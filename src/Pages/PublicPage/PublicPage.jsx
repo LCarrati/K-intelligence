@@ -35,10 +35,10 @@ const PublicPage = () => {
     return (
         <Wrapper>
             <Top>
-                <Avatar src={`./${userData.userNickname}/${userData.imageName}`} alt="avatar" />
+                <Avatar src={`/linktree/${userNickname}/${userData.imageName}`} alt="avatar" />
             </Top>
             <Middle>
-                <h1>{userData.userNickname}</h1>
+                <h1>{userNickname}</h1>
                 <p>{userData.bio}</p>
                 <a href={`http://${userData.website}`} target="_blank"><Links>Website</Links></a>
                 <a href={`https://discordapp.com/users/${userData.discord}`} target="_blank"><Links>Discord Discord</Links></a>

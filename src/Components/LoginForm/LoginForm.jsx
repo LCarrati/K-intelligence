@@ -34,20 +34,22 @@ const LoginForm = () => {
             return;
         }
 
-        const response = await axios.get(`https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/?nickname=${formData.nickname}&password=${formData.password}&type=login`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        if (response.status === 200) {
+        try {
+            await axios.get(`https://ghmuyzv4zzn7xnimyc4gks57i40nugrk.lambda-url.us-east-1.on.aws/?nickname=${formData.nickname}&password=${formData.password}&type=login`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
             const status = {
                 logado: true,
                 nickname: formData.nickname
             }
             localStorage.setItem('status', JSON.stringify(status))
             navigate(`/dashboard/${formData.nickname}`)
-        } else {
-            toast.error('Credenciais inválidas')
+        } catch (error) {
+            toast.error('Credenciais inválidas', {
+                position: "top-center"
+            })
         }
     }
 

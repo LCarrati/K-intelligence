@@ -36,6 +36,7 @@ export const Middle = styled.div`
         margin: 80px auto 0;
         text-transform: uppercase;
         font-family: system-ui;
+        font-size: x-large;
     }
 
     & p {
@@ -55,6 +56,8 @@ export const Middle = styled.div`
         text-decoration: underline;
         color: #0664a2;
         font-weight: bold;
+        text-wrap: nowrap;
+        font-size: 14px;
         &:hover {
             color: #3498db;
         }
